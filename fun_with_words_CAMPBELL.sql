@@ -68,8 +68,13 @@ SELECT * FROM WORD_SUMMARY;
 
 SELECT * FROM HOMONYMS;
 
-CREATE OR REPLACE VIEW WORD_HOMONYMS (homonym, meaning) AS
-SELECT h.word_term, h.meaning
-FROM HOMONYMS h;
+CREATE OR REPLACE VIEW WORD_HOMONYMS AS 
+SELECT word_term AS homonym,
+       MIN(meaning) AS meaning1,
+       MAX(meaning) AS meaning2
+FROM HOMONYMS
+GROUP BY word_term;
+
+-- USED CHATGPT TO HELP on this question
 
 SELECT * FROM WORD_HOMONYMS;
